@@ -2,6 +2,29 @@
 
 {% block content %}
 
-<h1>Home</h1>
+<div class="text-right">
+    {% if user.is_authenticated %}
+    <a class="nav-item nav-link" href="{% url 'create' %}"><span class="oi oi-plus"></span></a>
+    {%  endif %}
+</div>
+
+{% for product in products.all %}
+
+<div class="row mt-2 pt-4">
+        <!-- onclick="window.location='{% url 'detail' product.id %}';" style="cursor:pointer;" -->
+    <div class="col-2">
+        <img src="{{ product.icon.url }}" class="img-fluid" width="200" height="200" />
+    </div>
+    <div class="col-6">
+        <h2>{{ product.title }}</h2>
+        <p> {{ product.body }} </p>
+    </div>
+    <div class="col-4">
+        <p>Upvotes {{ product.votes_total }}</p>
+        <a href="{% url 'detail' product.id %}">details</a>
+    </div>
+</div>
+
+{% endfor %}
 
 {% endblock %}
